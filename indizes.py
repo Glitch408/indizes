@@ -7,10 +7,6 @@ connection = connect("Kunden.db")
 cursor = connection.cursor()
 
 
-#ONLY FOR TESTING
-cursor.execute("DROP TABLE IF EXISTS personen;")
-#DELETE AFTERWARD!!!!
-
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS personen (
   id INTEGER PRIMARY KEY,
@@ -19,7 +15,7 @@ CREATE TABLE IF NOT EXISTS personen (
 );
 """)
 
-for i in range(5):
+for i in range(500000):
   fullname = (fake.name()).split()
   firstname = fullname[0]
   lastname = fullname[(len(fullname))-1]
@@ -27,5 +23,5 @@ for i in range(5):
   INSERT INTO personen VALUES ('{i}', '{firstname}', '{lastname}');
   """) 
 
-
+connection.commit()
 connection.close()
